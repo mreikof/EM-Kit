@@ -3,6 +3,7 @@ var db = require("../models");
 var passport = require("../config/passport");
 
 module.exports = function(app) {
+
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
   // Otherwise the user will be sent an error
@@ -10,7 +11,73 @@ module.exports = function(app) {
     // Since we're doing a POST with javascript, we can't actually redirect that post into a GET request
     // So we're sending the user back the route to the members page because the redirect will happen on the front end
     // They won't get this or even be able to access this page if they aren't authed
+    db.User.findAll({
+      include:[db.Post]
+    })
+    .then(function(dbUser) {
     res.json("/members");
+  });
+  });
+
+  app.get("/api/posts/category/:category", function(req, res) {
+    db.Post.findAll({
+      where: {
+        category: req.params.category
+      }
+    })
+    .then(function(dbPost) {
+      res.json(dbPost);
+    });
+  });
+
+  // Get rotue for retrieving a single post
+  app.get("/api/posts/:id", function(req, res) {
+    db.Post.findOne({
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(function(dbPost) {
+      res.json(dbPost);
+    });
+  });
+
+  // POST route for saving a new post
+  app.post("/api/posts", function(req, res) {
+    console.log(req.body);
+    db.Post.create({
+      title: req.body.title,
+      body: req.body.body,
+      category: req.body.category
+    })
+    .then(function(dbPost) {
+      res.json(dbPost);
+    });
+  });
+
+  // DELETE route for deleting posts
+  app.delete("/api/posts/:id", function(req, res) {
+    db.Post.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(function(dbPost) {
+      res.json(dbPost);
+    });
+  });
+
+  // PUT route for updating posts
+  app.put("/api/posts", function(req, res) {
+    db.Post.update(req.body,
+      {
+        where: {
+          id: req.body.id
+        }
+      })
+    .then(function(dbPost) {
+      res.json(dbPost);
+    });
   });
 
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
