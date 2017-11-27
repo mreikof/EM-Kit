@@ -37,8 +37,21 @@ module.exports = function(app) {
   });
 
   // blog route loads blog.html
-  app.get("/blog", function(req, res) {
+  app.get("/blog", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/blog.html"));
   });
 
 };
+
+// function isAuthenticated(req, res, next) {
+//
+//     // do any checks you want to in here
+//
+//     // CHECK THE USER STORED IN SESSION FOR A CUSTOM VARIABLE
+//     // you can do this however you want with whatever variables you set up
+//     if (req.user.authenticated)
+//         return next();
+//
+//     // IF A USER ISN'T LOGGED IN, THEN REDIRECT THEM SOMEWHERE
+//     res.redirect('/');
+// }

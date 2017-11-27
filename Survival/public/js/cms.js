@@ -15,6 +15,8 @@ $(document).ready(function() {
   // Getting jQuery references to the post body, title, form, and category select
   var bodyInput = $("#body");
   var titleInput = $("#title");
+  var emailInput = $("#email");
+  // var idInput = $("#id");
   var cmsForm = $("#cms");
   var postCategorySelect = $("#category");
   // Giving the postCategorySelect a default value
@@ -29,8 +31,10 @@ $(document).ready(function() {
     // Constructing a newPost object to hand to the database
     var newPost = {
       title: titleInput.val().trim(),
+      // id: idInput.val().trim(),
       body: bodyInput.val().trim(),
-      category: postCategorySelect.val()
+      email: emailInput.val().trim(),
+      category: postCategorySelect.val(),
     };
 
     console.log(newPost);
@@ -38,7 +42,7 @@ $(document).ready(function() {
     // If we're updating a post run updatePost to update a post
     // Otherwise run submitPost to create a whole new post
     if (updating) {
-      newPost.id = postId;
+      newPost.email = postId;
       updatePost(newPost);
     }
     else {
@@ -59,7 +63,9 @@ $(document).ready(function() {
       if (data) {
         // If this post exists, prefill our cms forms with its data
         titleInput.val(data.title);
+        idInput.val(data.id);
         bodyInput.val(data.body);
+        emailInput.val(data.email);
         postCategorySelect.val(data.category);
         // If we have a post with this id, set a flag for us to know to update the post
         // when we hit submit

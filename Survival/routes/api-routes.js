@@ -1,6 +1,8 @@
 // Requiring our models and passport as we've configured it
 var db = require("../models");
 var passport = require("../config/passport");
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 module.exports = function(app) {
 
@@ -16,30 +18,41 @@ module.exports = function(app) {
     })
     .then(function(dbUser) {
     res.json("/members");
-  });
+  }).catch(function(err) {
+  // print the error details
+  console.log(err, req.body);
+});
   });
 
-  app.get("/api/posts/category/:category", function(req, res) {
+  app.get("/api/posts/category/:category/:useremail", function(req, res) {
+       console.log(req.params.category + req.params.useremail);
     db.Post.findAll({
       where: {
-        category: req.params.category
+        // category: req.params.category
+        [Op.and]: [{category: req.params.category}, {email: req.params.useremail}]
       }
     })
     .then(function(dbPost) {
       res.json(dbPost);
-    });
+    }).catch(function(err) {
+    // print the error details
+    console.log(err, req.body);
+});
   });
 
   // Get rotue for retrieving a single post
   app.get("/api/posts/:id", function(req, res) {
     db.Post.findOne({
       where: {
-        id: req.params.id
+        email: req.params.email
       }
     })
     .then(function(dbPost) {
       res.json(dbPost);
-    });
+    }).catch(function(err) {
+    // print the error details
+    console.log(err, req.body);
+});
   });
 
   // POST route for saving a new post
@@ -48,23 +61,32 @@ module.exports = function(app) {
     db.Post.create({
       title: req.body.title,
       body: req.body.body,
-      category: req.body.category
+      category: req.body.category,
+      email: req.body.email,
+      id: req.body.id
     })
     .then(function(dbPost) {
+      console.log('success');
       res.json(dbPost);
-    });
+    }).catch(function(err) {
+    // print the error details
+    console.log(err, req.body);
+});
   });
 
   // DELETE route for deleting posts
   app.delete("/api/posts/:id", function(req, res) {
     db.Post.destroy({
       where: {
-        id: req.params.id
+        email: req.params.email
       }
     })
     .then(function(dbPost) {
       res.json(dbPost);
-    });
+    }).catch(function(err) {
+    // print the error details
+    console.log(err, req.body);
+});
   });
 
   // PUT route for updating posts
@@ -72,12 +94,15 @@ module.exports = function(app) {
     db.Post.update(req.body,
       {
         where: {
-          id: req.body.id
+          email: req.body.email
         }
       })
     .then(function(dbPost) {
       res.json(dbPost);
-    });
+    }).catch(function(err) {
+    // print the error details
+    console.log(err, req.body);
+});
   });
 
   // Route for signing up a user. The user's password is automatically hashed and stored securely thanks to
@@ -101,6 +126,12 @@ module.exports = function(app) {
   app.get("/logout", function(req, res) {
     req.logout();
     res.redirect("/");
+
+    // req.logout();
+    // req.session.destroy(cb);
+    // function cb() {
+    //    res.redirect('/');
+    // }
   });
 
   // Route for getting some data about our user to be used client side
