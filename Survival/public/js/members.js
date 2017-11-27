@@ -1,25 +1,18 @@
 $(document).ready(function() {
   // This file just does a GET request to figure out which user is logged in
+  var userEmail;
   // and updates the HTML on the page
   $.get("/api/user_data").then(function(data) {
     $(".member-name").text(data.email);
+    userEmail = "/" + data.email;
   });
 
-  /* global moment */
-  // blogContainer holds all of our posts
-  var blogContainer = $(".blog-container");
-  var postCategorySelect = $("#category");
-  // Click events for the edit and delete buttons
-  $(document).on("click", "button.delete", handlePostDelete);
-  $(document).on("click", "button.edit", handlePostEdit);
-  postCategorySelect.on("change", handleCategoryChange);
-  var posts;
+  /////// Working on Retrieving Only Data for LoggedIn User /////////
 
-  // This function grabs posts from the database and updates the view
   function getPosts(category) {
     var categoryString = category || "";
     if (categoryString) {
-      categoryString = "/category/" + categoryString;
+      categoryString = "/category/" + categoryString + userEmail;
     }
     $.get("/api/posts" + categoryString, function(data) {
       console.log("Posts", data);
@@ -32,6 +25,39 @@ $(document).ready(function() {
       }
     });
   }
+
+
+
+  ///////////////////////////////////////////////////////////////////
+
+
+  /* global moment */
+  // blogContainer holds all of our posts
+  var blogContainer = $(".blog-container");
+  var postCategorySelect = $("#category");
+  // Click events for the edit and delete buttons
+  $(document).on("click", "button.delete", handlePostDelete);
+  $(document).on("click", "button.edit", handlePostEdit);
+  postCategorySelect.on("change", handleCategoryChange);
+  var posts;
+
+  // This function grabs posts from the database and updates the view
+  // function getPosts(category) {
+  //   var categoryString = category || "";
+  //   if (categoryString) {
+  //     categoryString = "/category/" + categoryString;
+  //   }
+  //   $.get("/api/posts" + categoryString, function(data) {
+  //     console.log("Posts", data);
+  //     posts = data;
+  //     if (!posts || !posts.length) {
+  //       displayEmpty();
+  //     }
+  //     else {
+  //       initializeRows();
+  //     }
+  //   });
+  // }
 
   // This function does an API call to delete posts
   function deletePost(email) {
@@ -106,7 +132,7 @@ $(document).ready(function() {
       .parent()
       .parent()
       .data("post");
-    deletePost(currentPost.id);
+    deletePost(currentPost);
   }
 
   // This function figures out which post we want to edit and takes it to the

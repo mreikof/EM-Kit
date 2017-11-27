@@ -1,4 +1,11 @@
 $(document).ready(function() {
+
+     var userEmail;
+     // and updates the HTML on the page
+     $.get("/api/user_data").then(function(data) {
+       $(".member-name").text(data.email);
+       userEmail = "/" + data.email;
+     });
   /* global moment */
   // blogContainer holds all of our posts
   var blogContainer = $(".blog-container");
@@ -10,10 +17,27 @@ $(document).ready(function() {
   var posts;
 
   // This function grabs posts from the database and updates the view
+  // function getPosts(category) {
+  //   var categoryString = category || "";
+  //   if (categoryString) {
+  //     categoryString = "/category/" + categoryString;
+  //   }
+  //   $.get("/api/posts" + categoryString, function(data) {
+  //     console.log("Posts", data);
+  //     posts = data;
+  //     if (!posts || !posts.length) {
+  //       displayEmpty();
+  //     }
+  //     else {
+  //       initializeRows();
+  //     }
+  //   });
+  // }
+
   function getPosts(category) {
     var categoryString = category || "";
     if (categoryString) {
-      categoryString = "/category/" + categoryString;
+      categoryString = "/category/" + categoryString + userEmail;
     }
     $.get("/api/posts" + categoryString, function(data) {
       console.log("Posts", data);
@@ -95,12 +119,12 @@ $(document).ready(function() {
 
   // This function figures out which post we want to delete and then calls
   // deletePost
-  function handlePostDelete() {
+  function handlePostDelete(data) {
     var currentPost = $(this)
       .parent()
       .parent()
       .data("post");
-    deletePost(currentPost.id);
+    deletePost(currentPost.data);
   }
 
   // This function figures out which post we want to edit and takes it to the
