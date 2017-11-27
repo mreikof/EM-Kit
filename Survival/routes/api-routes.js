@@ -1,6 +1,8 @@
 // Requiring our models and passport as we've configured it
 var db = require("../models");
 var passport = require("../config/passport");
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 module.exports = function(app) {
 
@@ -22,10 +24,12 @@ module.exports = function(app) {
 });
   });
 
-  app.get("/api/posts/category/:category", function(req, res) {
+  app.get("/api/posts/category/:category/:useremail", function(req, res) {
+       console.log(req.params.category + req.params.useremail);
     db.Post.findAll({
       where: {
-        category: req.params.category
+        // category: req.params.category
+        [Op.and]: [{category: req.params.category}, {email: req.params.useremail}]
       }
     })
     .then(function(dbPost) {
