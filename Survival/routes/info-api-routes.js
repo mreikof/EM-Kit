@@ -16,8 +16,7 @@ module.exports = function(app) {
   app.get("/api/posts", function(req, res) {
     // findAll returns all entries for a table when used with no options
     db.Post.findAll({
-      where:query,
-      include: [db.User]
+
     }).then(function(dbPost) {
       // We have access to the todos as an argument inside of the callback function
       res.json(dbPost);
@@ -42,7 +41,7 @@ module.exports = function(app) {
     // We just have to specify which todo we want to destroy with "where"
     db.Post.destroy({
       where: {
-        id: req.params.id
+        email: req.params.email
       }
     }).then(function(dbPost) {
       res.json(dbPost);
@@ -59,7 +58,7 @@ module.exports = function(app) {
        req.body,
      {
       where: {
-        id: req.body.id
+        email: req.body.email
       }
     }).then(function(dbPost) {
       res.json(dbPost);

@@ -28,10 +28,10 @@ $(document).ready(function() {
   }
 
   // This function does an API call to delete posts
-  function deletePost(id) {
+  function deletePost(email) {
     $.ajax({
       method: "DELETE",
-      url: "/api/posts/" + id
+      url: "/api/posts/" + email
     })
     .done(function() {
       getPosts(postCategorySelect.val());
