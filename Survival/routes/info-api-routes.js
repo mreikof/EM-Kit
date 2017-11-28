@@ -41,7 +41,7 @@ module.exports = function(app) {
     // We just have to specify which todo we want to destroy with "where"
     db.Post.destroy({
       where: {
-        email: req.params.email
+        id: req.params.id
       }
     }).then(function(dbPost) {
       res.json(dbPost);
@@ -55,10 +55,10 @@ module.exports = function(app) {
     // Update takes in an object describing the properties we want to update, and
     // we use where to describe which objects we want to update
     db.Post.update(
-       req.body,
+        req.body,
      {
       where: {
-        email: req.body.email
+        id: req.params.id
       }
     }).then(function(dbPost) {
       res.json(dbPost);
