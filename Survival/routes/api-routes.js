@@ -44,8 +44,9 @@ module.exports = function(app) {
   app.get("/api/posts/:id", function(req, res) {
     db.Post.findOne({
       where: {
-        email: req.params.email
-      }
+          id: req.params.id
+      },
+      include: [db.Post]
     })
     .then(function(dbPost) {
       res.json(dbPost);
@@ -78,7 +79,7 @@ module.exports = function(app) {
   app.delete("/api/posts/:id", function(req, res) {
     db.Post.destroy({
       where: {
-        email: req.params.email
+        id: req.params.id
       }
     })
     .then(function(dbPost) {
@@ -94,7 +95,7 @@ module.exports = function(app) {
     db.Post.update(req.body,
       {
         where: {
-          email: req.body.email
+          id: req.body.id
         }
       })
     .then(function(dbPost) {

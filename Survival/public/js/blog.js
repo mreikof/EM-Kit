@@ -119,12 +119,12 @@ $(document).ready(function() {
 
   // This function figures out which post we want to delete and then calls
   // deletePost
-  function handlePostDelete(data) {
+  function handlePostDelete() {
     var currentPost = $(this)
       .parent()
       .parent()
       .data("post");
-    deletePost(currentPost.data);
+    deletePost(currentPost.id);
   }
 
   // This function figures out which post we want to edit and takes it to the
@@ -139,6 +139,7 @@ $(document).ready(function() {
 
   // This function displays a messgae when there are no posts
   function displayEmpty() {
+
     blogContainer.empty();
     var messageh2 = $("<h2>");
     messageh2.css({ "text-align": "center", "margin-top": "50px" });
