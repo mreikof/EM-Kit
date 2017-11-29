@@ -64,7 +64,7 @@ module.exports = function(app) {
       body: req.body.body,
       category: req.body.category,
       email: req.body.email,
-      id: req.body.id
+
     })
     .then(function(dbPost) {
       console.log('success');
