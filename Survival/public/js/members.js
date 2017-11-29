@@ -132,7 +132,7 @@ $(document).ready(function() {
       .parent()
       .parent()
       .data("post");
-    deletePost(currentPost);
+    deletePost(currentPost.id);
   }
 
   // This function figures out which post we want to edit and takes it to the

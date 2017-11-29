@@ -58,7 +58,7 @@ module.exports = function(app) {
         req.body,
      {
       where: {
-        id: req.params.id
+        id: req.body.id
       }
     }).then(function(dbPost) {
       res.json(dbPost);

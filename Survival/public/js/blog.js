@@ -131,8 +131,9 @@ $(document).ready(function() {
   // Appropriate url
   function handlePostEdit() {
     var currentPost = $(this)
+    .parent()
       .parent()
-      .parent()
+    
       .data("post");
     window.location.href = "/cms?post_id=" + currentPost.id;
   }
