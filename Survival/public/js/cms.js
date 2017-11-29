@@ -42,7 +42,7 @@ $(document).ready(function() {
     // If we're updating a post run updatePost to update a post
     // Otherwise run submitPost to create a whole new post
     if (updating) {
-      newPost.email = postId;
+      newPost.id = postId;
       updatePost(newPost);
     }
     else {
@@ -63,7 +63,7 @@ $(document).ready(function() {
       if (data) {
         // If this post exists, prefill our cms forms with its data
         titleInput.val(data.title);
-        idInput.val(data.id);
+      
         bodyInput.val(data.body);
         emailInput.val(data.email);
         postCategorySelect.val(data.category);
