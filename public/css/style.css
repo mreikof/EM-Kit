@@ -26,11 +26,20 @@ button.edit {
   margin: 5px;
 }
 
+.panel-default>.panel-heading {
+	background-color: #032429;
+	border-radius: 20px;
+}
+
 .top-30 {
   margin-top: 30px;
 }
 
 label {
+	color: white;
+}
+
+h5 {
 	color: white;
 }
 
