@@ -21,6 +21,14 @@ h2 {
   margin-left: 10px;
 }
 
+.msgg {
+  color: red;
+}
+
+#alerts {
+  padding-bottom: 15px;
+}
+
 /*Inputs: This section is for inputs =========*/
 
 .fancyRow {
@@ -50,7 +58,7 @@ h2 {
 .slide-up {
   display: inline-block;
   width: 500px;
-  padding: 10px 0 10px 15px;
+  padding: 10px 0 10px 30px;
   font-family: "Open Sans", sans;
   font-weight: 400;
   color: #377D6A;
