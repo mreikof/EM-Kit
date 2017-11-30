@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Login</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css">
+  <link href="css/style.css" rel="stylesheet"> -->
+  <link href="css/loginStyle.css" rel="stylesheet">
+</head>
+
+<body>
+  
+  <div class="container">
+
+        <h2>Log In</h2>
+        <form class="login">
+
+
+          <div class="form-group">
+            <div class="fancyRow">
+              <span>
+                <input type="email" class="slide-up form-control" id="email-input">
+                <label for="exampleInputEmail1">Email address</label>
+              </span>
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <div class="fancyRow">
+              <span>
+                <input type="password" class="slide-up form-control" id="password-input">
+                <label for="exampleInputPassword1">Password</label>
+              </span>
+            </div>
+          </div>
+
+
+          <div style="display: none" id="alerts" class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span> <span class="msgg"></span>
+          </div>
+
+
+          <button type="submit" class="pure-button fuller-button blue btn btn-default">Login</button>
+
+        </form>
+
+        <br />
+        <p class="orText">Or sign up <a href="/">here</a></p>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="js/login.js"></script>
+
+</body>
+
+</html>

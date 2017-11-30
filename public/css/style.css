@@ -1,0 +1,71 @@
+body {
+	background: #032429;
+}
+
+h2 {
+	color: white;
+}
+
+button.submit {
+  float: right;
+  margin-bottom: 30px;
+}
+
+
+form#cms {
+  margin-top: 50px;
+}
+
+#cms textarea {
+  resize: none;
+}
+
+.panel-heading button.delete,
+button.edit {
+  float: right;
+  margin: 5px;
+}
+
+.panel-default>.panel-heading {
+	background-color: #032429;
+	border-radius: 20px;
+}
+
+.top-30 {
+  margin-top: 30px;
+}
+
+label {
+	color: white;
+}
+
+h5 {
+	color: white;
+}
+
+.btn-success, .btn-default {
+	background-color: #377D6A;
+	border-color: #377D6A;
+	color: white;
+}
+
+.navbar-default {
+	background-color: #377D6A;
+	border-color: #377D6A;
+}
+
+.container-fluid {
+	background-color: #377D6A;
+}
+
+#newListBtn {
+	margin-bottom: 15px;
+}
+
+#logoutText {
+	color: white;
+}
+
+#logoutText:hover {
+	color: #032429
+}
